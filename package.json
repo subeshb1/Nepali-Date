@@ -1,5 +1,5 @@
 {
-  "name": "nepali-date",
+  "name": "nepali-date-converter",
   "version": "1.0.0",
   "description": "A small Js library to convert English date to Nepali and Vice Versa",
   "main": "src/index.js",
