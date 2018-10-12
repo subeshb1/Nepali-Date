@@ -8,4 +8,9 @@ describe("NepaliDate to English", () => {
     const empty = new NepaliDate();
     expect(empty.toAD()).toEqual({ year: 1943, month: 3, date: 14 });
   });
+
+  it("test fromAd", () => {
+    const nd = NepaliDate.fromAD(1997, 9, 10);
+    expect(nd).toEqual(new NepaliDate(2054, 5, 24));
+  });
 });
