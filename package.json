@@ -1,0 +1,26 @@
+{
+  "name": "nepali-date",
+  "version": "1.0.0",
+  "description": "A small Js library to convert English date to Nepali and Vice Versa",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/subeshb1/Nepali-Date.git"
+  },
+  "keywords": [
+    "nepali",
+    "date",
+    "english",
+    "date",
+    "converter"
+  ],
+  "author": "'Subesh <'subeshb1@gmail.com'>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/subeshb1/Nepali-Date/issues"
+  },
+  "homepage": "https://github.com/subeshb1/Nepali-Date#readme"
+}
