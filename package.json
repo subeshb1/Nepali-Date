@@ -1,14 +1,17 @@
 {
   "name": "nepali-date-converter",
-  "version": "1.1.0-beta.0",
+  "version": "0.0.0-development",
   "description": "A small Js library to convert English date to Nepali and Vice Versa",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "commit": "npx git-cz",
+    "test": "jest",
+    "travis-deploy-once": "travis-deploy-once",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/subeshb1/Nepali-Date.git"
+    "url": "https://github.com/subeshb1/Nepali-Date.git"
   },
   "keywords": [
     "nepali",
@@ -22,5 +25,17 @@
   "bugs": {
     "url": "https://github.com/subeshb1/Nepali-Date/issues"
   },
-  "homepage": "https://github.com/subeshb1/Nepali-Date#readme"
+  "homepage": "https://github.com/subeshb1/Nepali-Date#readme",
+  "devDependencies": {
+    "commitizen": "^3.0.2",
+    "cz-conventional-changelog": "^2.1.0",
+    "jest": "^23.6.0",
+    "semantic-release": "^15.9.17",
+    "travis-deploy-once": "^5.0.9"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  }
 }
