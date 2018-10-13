@@ -10,3 +10,5 @@ A small JS Library to convert English Date to Nepali and Vice Versa.
     // Javascript Date object
     date1.ad
 ```
+
+>> Will Be updating the readme in the future
