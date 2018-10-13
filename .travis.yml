@@ -1,14 +1,16 @@
 language: node_js
 cache:
   directories:
-    - ~/.npm
+    - node_modules
 notifications:
   email: false
 node_js:
-  - "iojs"
+  - '10'
 before_install:
   - npm i -g npm@^2.0.0
-before_success:
+before_script:
+  - npm prune
+script:
   - npm run test
 after_success:
   - npm run semantic-release
