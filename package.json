@@ -7,7 +7,7 @@
     "commit": "npx git-cz",
     "test": "jest",
     "travis-deploy-once": "travis-deploy-once",
-    "semantic-release": "semantic-release pre && npm publish"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
