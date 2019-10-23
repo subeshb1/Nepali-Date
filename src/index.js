@@ -220,9 +220,7 @@ class NepaliDate {
   getMonthAD() {
     return this.ad.getMonth();
   }
-  bark() {
-    console.log("Bark!!");
-  }
+
   static fromAD(
     year = beginEnglish.year,
     month = beginEnglish.month,
