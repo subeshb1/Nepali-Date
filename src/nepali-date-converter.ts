@@ -1,7 +1,7 @@
 
 import monthDaysMappings from './month-days-mapping'
 
-const KTM_OFFSET = 20700000;
+const KTM_TIMEZONE_OFFSET = 20700000;
 
 export default class NepaliDate {
   private date:number;
