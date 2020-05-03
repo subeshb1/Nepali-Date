@@ -191,14 +191,32 @@ const yearDaysMapping = [
 ];
 
 
+/**
+ * @ignore
+ */
 export function getYearIndex(year: number) {
   return year - START_YEAR - 1;
 }
+/**
+ * @ignore
+ */
 export const KTM_TIMEZONE_OFFSET = 20700000;
+/**
+ * @ignore
+ */
 export const START_YEAR = 2000;
+/**
+ * @ignore
+ */
 export const COMPLETED_DAYS = 1;
+/**
+ * @ignore
+ */
 export const TOTAL_DAYS = 0;
 
+/**
+ * @ignore
+ */
 function mod(m: number, val: number) {
   while (val < 0) {
     val += m;
@@ -209,17 +227,52 @@ function mod(m: number, val: number) {
 
 
 
+/**
+ * @ignore
+ */
 const MONTHS_EN = ['Baisakh', 'Jestha', 'Asar', 'Shrawan', 'Bhadra', 'Aswin', 'Kartik', 'Mangsir', 'Poush', 'Magh', 'Falgun', 'Chaitra'];
+/**
+ * @ignore
+ */
 const MONTHS_SHORT_EN = ['Bai', 'Jes', 'Asa', 'Shr', 'Bhd', 'Asw', 'Kar', 'Man', 'Pou', 'Mag', 'Fal', 'Cha'];
+/**
+ * @ignore
+ */
 const MONTHS_NP = ['बैशाख', 'जेठ', 'असार', 'श्रावण', 'भाद्र', 'आश्विन', 'कार्तिक', 'मंसिर', 'पौष', 'माघ', 'फाल्गुण', 'चैत्र'];
+/**
+ * @ignore
+ */
 const MONTHS_SHORT_NP = ['बै', 'जे', 'अ', 'श्रा', 'भा', 'आ', 'का', 'मं', 'पौ', 'मा', 'फा', 'चै'];
+/**
+ * @ignore
+ */
 const NUM_NP = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
+/**
+ * @ignore
+ */
 const WEEKDAYS_SHORT_EN = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+/**
+ * @ignore
+ */
 const WEEKDAYS_LONG_EN = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+/**
+ * @ignore
+ */
 const WEEKDAYS_SHORT_NP = ['आइत', 'सोम', 'मंगल', 'बुध', 'बिहि', 'शुक्र', 'शनि'];
+/**
+ * @ignore
+ */
 const WEEKDAYS_LONG_NP = ['आइतबार', 'सोमबार', 'मंगलबार', 'बुधबार', 'बिहिबार', 'शुक्रबार', 'शनिबार'];
 
 
+
+/**
+ * This function calculates the difference in days of given date and epoch time.
+ * @param year Year between 2000-2009 of nepali date
+ * @param month Month Index which can be negative or positive and can be any number but should be within range of year 2000-2090
+ * @param date Date which can be negative or positive and can be any number but should be within range of year 2000-2090
+ * @returns Number of days passed since epoch time from the given date,month and year.
+ */
 export function findDays(year: number, month: number, date: number) {
 
   const yearIndex = year - START_YEAR - 1;
@@ -234,3 +287,8 @@ export function findDays(year: number, month: number, date: number) {
 }
 
 export { monthDaysMappings, yearDaysMapping };
+
+
+export function mapDaysToDate(days: number) {
+    
+}
