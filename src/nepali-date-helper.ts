@@ -7,6 +7,7 @@ interface IYearMonthDate {
   year: number;
   month: number;
   date: number;
+  day?: number;
 }
 
 const monthDaysMappings = [
@@ -280,17 +281,28 @@ const WEEKDAYS_SHORT_NP = ['आइत', 'सोम', 'मंगल', 'बुध'
  */
 const WEEKDAYS_LONG_NP = ['आइतबार', 'सोमबार', 'मंगलबार', 'बुधबार', 'बिहिबार', 'शुक्रबार', 'शनिबार'];
 
+const beginEnglish = {
+  year: 1943,
+  month: 3,
+  date: 13,
+  day: 3
+};
 
+const initTime = new Date(
+  beginEnglish.year,
+  beginEnglish.month,
+  beginEnglish.date
+);
 
 /**
- * `findDays` calculates the days passed from the epoch time.
+ * `findPassedDays` calculates the days passed from the epoch time.
  *  If the days are beyond boundary MIN_DAY and MAX_DAY throws error.
  * @param year Year between 2000-2009 of nepali date
  * @param month Month Index which can be negative or positive and can be any number but should be within range of year 2000-2090
  * @param date Date which can be negative or positive and can be any number but should be within range of year 2000-2090
  * @returns Number of days passed since epoch time from the given date,month and year.
  */
-export function findDays(year: number, month: number, date: number) {
+export function findPassedDays(year: number, month: number, date: number) {
   try {
     const yearIndex = getYearIndex(year);
     const pastYearDays = yearDaysMapping[yearIndex][COMPLETED_DAYS];
@@ -314,7 +326,7 @@ export { monthDaysMappings, yearDaysMapping };
 
 /**
  * `mapDaysToDate` finds the date where the the given day lies from the epoch date
- * If the daysPassed is on the date is 2000/01/01. Similarly, every day adds to the date.
+ * If the daysPassed is on the date 2000/01/01 then it will be 1. Similarly, every day adds on from then
  * If the days are beyond boundary MIN_DAY and MAX_DAY throws error.
  * @param daysPassed The number of days passed since nepali date epoch time
  * @returns date values in object implementing IYearMonthDate interface
@@ -333,5 +345,45 @@ export function mapDaysToDate(daysPassed: number): IYearMonthDate {
     year: getYearFromIndex(yearIndex),
     month: monthIndex,
     date: date
+  }
+}
+
+
+export function findPassedDaysAD(year: number, month: number, date: number) {
+  const timeDiff = Math.abs(Date.UTC(year, month, date) - Date.UTC(beginEnglish.year, beginEnglish.month, beginEnglish.date));
+  const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+  return diffDays;
+}
+
+export function mapDaysToDateAD(daysPassed: number) {
+  const mappedDate = new Date(Date.UTC(1943, 3, 13 + daysPassed))
+  return {
+    year: mappedDate.getUTCFullYear(),
+    month: mappedDate.getUTCMonth(),
+    date: mappedDate.getUTCDate(),
+    day: mappedDate.getUTCDay()
+  }
+
+}
+
+export function convertToAD(bsDateObject: IYearMonthDate) {
+  const daysPassed = findPassedDays(bsDateObject.year, bsDateObject.month, bsDateObject.date);
+  const BS = mapDaysToDate(daysPassed);
+  const AD = mapDaysToDateAD(daysPassed);
+
+  return {
+    AD,
+    BS: { ...BS, day: AD.day }
+  }
+}
+
+export function convertToBS(adDateObject: Date) {
+  const daysPassed = findPassedDaysAD(adDateObject.getFullYear(), adDateObject.getMonth(), adDateObject.getDate());
+  const BS = mapDaysToDate(daysPassed);
+  const AD = mapDaysToDateAD(daysPassed);
+
+  return {
+    AD,
+    BS: { ...BS, day: AD.day }
   }
 }
