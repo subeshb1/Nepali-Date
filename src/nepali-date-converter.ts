@@ -1,24 +1,48 @@
 
-import monthDaysMappings from './month-days-mapping'
+import { monthDaysMappings, yearDaysMapping } from './nepali-date-helper'
 
-const KTM_TIMEZONE_OFFSET = 20700000;
+
 
 export default class NepaliDate {
-  private date:number;
-  private month:number;
-  private year:number;
+  private date: number;
+  private month: number;
+  private year: number;
+  private jsDate: Date;
+
   constructor();
+  constructor(value: number);
   constructor(dateString: string);
-  constructor(year: number, month: number, date: number);
+  constructor(year: number, monthIndex: number, day: number);
   constructor(data?: any) {
-    this.date = 1;
-    this.month = 1;
-    this.year = 1;
+    this.year = 2077;
+    this.month = -1;
+    this.date = 10;
+    this.jsDate = new Date();
+  }
+
+  findDays() {
+
+  }
+
+  integerConstructor() {
+
+  }
+
+  stringConstructor() {
+
+  }
+
+  dayYearMonthConstructor() {
+
+  }
+
+  jdDateConstructor() {
+
   }
 
   toJsDate(): Date {
 
-    return new Date()
+    return this.jsDate;
   }
 
 
@@ -35,7 +59,7 @@ export default class NepaliDate {
   }
 
   setMonth() {
-    
+
   }
 
   getYear(): number {
@@ -52,6 +76,11 @@ export default class NepaliDate {
   }
 
   static fromAD() {
+
+  }
+
+
+  convertToAD() {
 
   }
 }
