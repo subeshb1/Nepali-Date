@@ -15,8 +15,8 @@ const Magh = 9
 const Falgun = 10;
 const Chaitra = 11;
 
-describe("Find Days", () => {
-  it("tests number of days for given year,month,date", () => {
+describe("findDays()", () => {
+  it("returns days that have passed since epoch nepali time", () => {
 
     // Normal cases where the date and month don't exceed limits
     expect(findDays(2077, 0, 10)).toBe(yearDaysMapping[getYearIndex(2077)][COMPLETED_DAYS] + monthDaysMappings[getYearIndex(2077)][Baisakh][COMPLETED_DAYS] + 10)
