@@ -1,28 +1,43 @@
 
-import { monthDaysMappings, yearDaysMapping } from './nepali-date-helper'
+import { mapDaysToDate, findPassedDays } from './nepali-date-helper'
 
 
 
+const dateSymbol = Symbol('Date')
+const yearSymbol = Symbol('Year')
+const monthSymbol = Symbol('Month')
+const jsDateSymbol = Symbol('JSDate')
 export default class NepaliDate {
-  private date: number;
-  private month: number;
-  private year: number;
-  private jsDate: Date;
 
-  constructor();
+  private [jsDateSymbol]: Date;
+
+  private [yearSymbol]: number;
+  private [dateSymbol]: number;
+  private [monthSymbol]: number;
+
   constructor(value: number);
   constructor(dateString: string);
   constructor(year: number, monthIndex: number, day: number);
-  constructor(data?: any) {
-    this.year = 2077;
-    this.month = -1;
-    this.date = 10;
-    this.jsDate = new Date();
+  constructor() {
+    const constructorError = new Error("Invalid constructor arguments");
+    if (arguments.length === 1) {
+      switch (typeof arguments[0]) {
+        case "number":
+          this[jsDateSymbol] = new Date(arguments[0]);
+          break;
+        case "string":
+          break;
+        default:
+          throw constructorError
+      }
+    } else if (arguments.length <= 3) {
+      this.setDayYearMonth(arguments[0], arguments[1], arguments[2])
+    } else {
+      throw constructorError
+    }
+    this.convertToAD()
   }
 
-  findDays() {
-
-  }
 
   integerConstructor() {
 
@@ -32,8 +47,10 @@ export default class NepaliDate {
 
   }
 
-  dayYearMonthConstructor() {
-
+  setDayYearMonth(year: number, month: number = 0, day: number = 1) {
+    this[yearSymbol] = year;
+    this[monthSymbol] = month;
+    this[dateSymbol] = day;
   }
 
   jdDateConstructor() {
@@ -42,12 +59,12 @@ export default class NepaliDate {
 
   toJsDate(): Date {
 
-    return this.jsDate;
+    return this[jsDateSymbol];
   }
 
 
   getDate(): number {
-    return this.date
+    return this[dateSymbol]
   }
 
   setDate() {
@@ -55,7 +72,7 @@ export default class NepaliDate {
   }
 
   getMonth(): number {
-    return this.month
+    return this[monthSymbol]
   }
 
   setMonth() {
@@ -63,7 +80,7 @@ export default class NepaliDate {
   }
 
   getYear(): number {
-    return this.year
+    return this[yearSymbol]
   }
 
   setYear() {
@@ -81,6 +98,13 @@ export default class NepaliDate {
 
 
   convertToAD() {
+    const daysPassed = findPassedDays(this[yearSymbol], this[monthSymbol], this[dateSymbol])
+    const { date, month, year } = mapDaysToDate(daysPassed);
+    this.setDayYearMonth(year, month, date);
+    this[jsDateSymbol] = new Date(1943, 3, 13 + daysPassed)
+  }
 
+  toLocaleString() {
+    return "Subesh"
   }
 }
