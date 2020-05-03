@@ -1,4 +1,4 @@
-import DummyClass from "../src/nepali-date-converter"
+import NepaliDate from "../src/nepali-date-converter"
 
 /**
  * Dummy test
@@ -8,7 +8,7 @@ describe("Dummy test", () => {
     expect(true).toBeTruthy()
   })
 
-  it("DummyClass is instantiable", () => {
-    expect(new DummyClass()).toBeInstanceOf(DummyClass)
+  it("NepaliDate is instantiable", () => {
+    expect(new NepaliDate()).toBeInstanceOf(NepaliDate)
   })
 })
