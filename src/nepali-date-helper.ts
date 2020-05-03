@@ -3,6 +3,12 @@ interface IYearMonthMapping {
   [key: string]: number[];
 }
 
+interface IYearMonthDate {
+  year: number;
+  month: number;
+  date: number;
+}
+
 const monthDaysMappings = [
   [[30, 0], [32, 30], [31, 62], [32, 93], [31, 125], [30, 156], [30, 186], [30, 216], [29, 246], [30, 275], [29, 305], [31, 334]],
   [[31, 0], [31, 31], [32, 62], [31, 94], [31, 125], [31, 156], [30, 187], [29, 217], [30, 246], [29, 276], [30, 305], [30, 335]],
@@ -191,12 +197,22 @@ const yearDaysMapping = [
 ];
 
 
+const MAX_DAY = 33238;
+const MIN_DAY = 1;
 /**
  * @ignore
  */
 export function getYearIndex(year: number) {
-  return year - START_YEAR - 1;
+  return year - EPOCH_YEAR;
 }
+
+/**
+ * @ignore
+ */
+export function getYearFromIndex(yearIndex: number) {
+  return yearIndex + EPOCH_YEAR;
+}
+
 /**
  * @ignore
  */
@@ -204,7 +220,7 @@ export const KTM_TIMEZONE_OFFSET = 20700000;
 /**
  * @ignore
  */
-export const START_YEAR = 2000;
+export const EPOCH_YEAR = 2000;
 /**
  * @ignore
  */
@@ -267,28 +283,55 @@ const WEEKDAYS_LONG_NP = ['आइतबार', 'सोमबार', 'मंग
 
 
 /**
- * This function calculates the difference in days of given date and epoch time.
+ * `findDays` calculates the days passed from the epoch time.
+ *  If the days are beyond boundary MIN_DAY and MAX_DAY throws error.
  * @param year Year between 2000-2009 of nepali date
  * @param month Month Index which can be negative or positive and can be any number but should be within range of year 2000-2090
  * @param date Date which can be negative or positive and can be any number but should be within range of year 2000-2090
  * @returns Number of days passed since epoch time from the given date,month and year.
  */
 export function findDays(year: number, month: number, date: number) {
+  try {
+    const yearIndex = getYearIndex(year);
+    const pastYearDays = yearDaysMapping[yearIndex][COMPLETED_DAYS];
+    const extraMonth = mod(12, month);
+    const extraYear = Math.floor(month / 12);
 
-  const yearIndex = year - START_YEAR - 1;
-  const pastYearDays = yearDaysMapping[yearIndex][COMPLETED_DAYS];
-  const extraMonth = mod(12, month);
-  const extraYear = Math.floor(month / 12);
+    const pastMonthDays = (yearDaysMapping[yearIndex + extraYear][COMPLETED_DAYS] - pastYearDays) + monthDaysMappings[yearIndex + extraYear][extraMonth][COMPLETED_DAYS];
 
-  const pastMonthDays = (yearDaysMapping[yearIndex + extraYear][COMPLETED_DAYS] - pastYearDays) + monthDaysMappings[yearIndex + extraYear][extraMonth][COMPLETED_DAYS];
-
-
-  return pastYearDays + pastMonthDays + date;
+    const daysPassed = pastYearDays + pastMonthDays + date
+    if (daysPassed < MIN_DAY || daysPassed > MAX_DAY) {
+      throw new Error();
+    }
+    return daysPassed;
+  } catch {
+    throw new Error('The date doesn\'t ball within 2000/01/01 - 2090/12/30');
+  }
 }
 
 export { monthDaysMappings, yearDaysMapping };
 
 
-export function mapDaysToDate(days: number) {
-    
+/**
+ * `mapDaysToDate` finds the date where the the given day lies from the epoch date
+ * If the daysPassed is on the date is 2000/01/01. Similarly, every day adds to the date.
+ * If the days are beyond boundary MIN_DAY and MAX_DAY throws error.
+ * @param daysPassed The number of days passed since nepali date epoch time
+ * @returns date values in object implementing IYearMonthDate interface
+ */
+export function mapDaysToDate(daysPassed: number): IYearMonthDate {
+  if (daysPassed < MIN_DAY || daysPassed > MAX_DAY) {
+    throw new Error(`The epoch difference is not within the boundaries ${MIN_DAY} - ${MAX_DAY}`);
+  }
+
+  const yearIndex = yearDaysMapping.findIndex(year => daysPassed > year[COMPLETED_DAYS] && daysPassed <= year[COMPLETED_DAYS] + year[TOTAL_DAYS]);
+  const monthRemainder = daysPassed - yearDaysMapping[yearIndex][COMPLETED_DAYS];
+  const monthIndex = monthDaysMappings[yearIndex].findIndex(month => monthRemainder > month[COMPLETED_DAYS] && monthRemainder <= month[COMPLETED_DAYS] + month[TOTAL_DAYS]);
+  const date = monthRemainder - monthDaysMappings[yearIndex][monthIndex][COMPLETED_DAYS];
+
+  return {
+    year: getYearFromIndex(yearIndex),
+    month: monthIndex,
+    date: date
+  }
 }
