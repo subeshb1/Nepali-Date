@@ -3,7 +3,7 @@ interface IYearMonthMapping {
   [key: string]: number[];
 }
 
-interface IYearMonthDate {
+export interface IYearMonthDate {
   year: number;
   month: number;
   date: number;
@@ -317,7 +317,7 @@ export function findPassedDays(year: number, month: number, date: number) {
     }
     return daysPassed;
   } catch {
-    throw new Error('The date doesn\'t ball within 2000/01/01 - 2090/12/30');
+    throw new Error('The date doesn\'t fall within 2000/01/01 - 2090/12/30');
   }
 }
 
@@ -367,23 +367,32 @@ export function mapDaysToDateAD(daysPassed: number) {
 }
 
 export function convertToAD(bsDateObject: IYearMonthDate) {
-  const daysPassed = findPassedDays(bsDateObject.year, bsDateObject.month, bsDateObject.date);
-  const BS = mapDaysToDate(daysPassed);
-  const AD = mapDaysToDateAD(daysPassed);
+  try {
+    const daysPassed = findPassedDays(bsDateObject.year, bsDateObject.month, bsDateObject.date);
+    const BS = mapDaysToDate(daysPassed);
+    const AD = mapDaysToDateAD(daysPassed);
 
-  return {
-    AD,
-    BS: { ...BS, day: AD.day }
+    return {
+      AD,
+      BS: { ...BS, day: AD.day }
+    }
+  } catch {
+    throw new Error('The date doesn\'t fall within 2000/01/01 - 2090/12/30');
   }
+
 }
 
 export function convertToBS(adDateObject: Date) {
-  const daysPassed = findPassedDaysAD(adDateObject.getFullYear(), adDateObject.getMonth(), adDateObject.getDate());
-  const BS = mapDaysToDate(daysPassed);
-  const AD = mapDaysToDateAD(daysPassed);
+  try {
+    const daysPassed = findPassedDaysAD(adDateObject.getFullYear(), adDateObject.getMonth(), adDateObject.getDate());
+    const BS = mapDaysToDate(daysPassed);
+    const AD = mapDaysToDateAD(daysPassed);
 
-  return {
-    AD,
-    BS: { ...BS, day: AD.day }
+    return {
+      AD,
+      BS: { ...BS, day: AD.day }
+    }
+  } catch {
+    throw new Error('The date doesn\'t fall within 2000/01/01 - 2090/12/30');
   }
 }

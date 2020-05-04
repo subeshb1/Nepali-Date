@@ -57,13 +57,13 @@ describe("findPassedDays", () => {
   })
 
   it('throws if the the date doesn\'t lie within the nepali date boundary', () => {
-    expect(() => findPassedDays(2000, -1, -1)).toThrow('The date doesn\'t ball within 2000/01/01 - 2090/12/30')
-    expect(() => findPassedDays(2000, -100, -1)).toThrow('The date doesn\'t ball within 2000/01/01 - 2090/12/30')
-    expect(() => findPassedDays(2090, 11, 31)).toThrow('The date doesn\'t ball within 2000/01/01 - 2090/12/30')
-    expect(() => findPassedDays(2090, 11, 3001)).toThrow('The date doesn\'t ball within 2000/01/01 - 2090/12/30')
-    expect(() => findPassedDays(2000, 0, -31)).toThrow('The date doesn\'t ball within 2000/01/01 - 2090/12/30')
-    expect(() => findPassedDays(2091, 1, 1)).toThrow('The date doesn\'t ball within 2000/01/01 - 2090/12/30')
-    expect(() => findPassedDays(1999, 1, 1)).toThrow('The date doesn\'t ball within 2000/01/01 - 2090/12/30')
+    expect(() => findPassedDays(2000, -1, -1)).toThrow('The date doesn\'t fall within 2000/01/01 - 2090/12/30')
+    expect(() => findPassedDays(2000, -100, -1)).toThrow('The date doesn\'t fall within 2000/01/01 - 2090/12/30')
+    expect(() => findPassedDays(2090, 11, 31)).toThrow('The date doesn\'t fall within 2000/01/01 - 2090/12/30')
+    expect(() => findPassedDays(2090, 11, 3001)).toThrow('The date doesn\'t fall within 2000/01/01 - 2090/12/30')
+    expect(() => findPassedDays(2000, 0, -31)).toThrow('The date doesn\'t fall within 2000/01/01 - 2090/12/30')
+    expect(() => findPassedDays(2091, 1, 1)).toThrow('The date doesn\'t fall within 2000/01/01 - 2090/12/30')
+    expect(() => findPassedDays(1999, 1, 1)).toThrow('The date doesn\'t fall within 2000/01/01 - 2090/12/30')
   })
 
 })
