@@ -1,60 +1,66 @@
 
-import { mapDaysToDate, findPassedDays } from './nepali-date-helper'
-
+import {  convertToAD, convertToBS, IYearMonthDate } from './nepali-date-helper'
 
 
 const dateSymbol = Symbol('Date')
+const daySymbol = Symbol('Day')
 const yearSymbol = Symbol('Year')
 const monthSymbol = Symbol('Month')
 const jsDateSymbol = Symbol('JSDate')
+const convertToBSMethod = Symbol('convertToBS()');
+const convertToADMethod = Symbol('convertToAD()');
+const setAdBs = Symbol('setAdBs()');
+const setDayYearMonth = Symbol('setDayYearMonth()');
 export default class NepaliDate {
 
   private [jsDateSymbol]: Date;
 
   private [yearSymbol]: number;
   private [dateSymbol]: number;
+  private [daySymbol]: number;
   private [monthSymbol]: number;
 
+  constructor();
   constructor(value: number);
   constructor(dateString: string);
+  constructor(date: Date);
   constructor(year: number, monthIndex: number, day: number);
   constructor() {
     const constructorError = new Error("Invalid constructor arguments");
-    if (arguments.length === 1) {
-      switch (typeof arguments[0]) {
+    if (arguments.length === 0) {
+      this[convertToBSMethod](new Date());
+    }
+    else if (arguments.length === 1) {
+      const argument = arguments[0];
+      switch (typeof argument) {
         case "number":
-          this[jsDateSymbol] = new Date(arguments[0]);
+          this[convertToBSMethod](new Date(argument))
           break;
         case "string":
+          break;
+        case "object":
+          if (argument instanceof Date) {
+            this[convertToBSMethod](argument)
+          } else {
+            throw constructorError;
+          }
           break;
         default:
           throw constructorError
       }
     } else if (arguments.length <= 3) {
-      this.setDayYearMonth(arguments[0], arguments[1], arguments[2])
+      this[setDayYearMonth](arguments[0], arguments[1], arguments[2])
+      this[convertToADMethod]();
     } else {
       throw constructorError
     }
-    this.convertToAD()
   }
 
-
-  integerConstructor() {
-
-  }
-
-  stringConstructor() {
-
-  }
-
-  setDayYearMonth(year: number, month: number = 0, day: number = 1) {
+  [setDayYearMonth](year: number, month: number = 0, date: number = 1, day: number = 0) {
     this[yearSymbol] = year;
     this[monthSymbol] = month;
-    this[dateSymbol] = day;
-  }
-
-  jdDateConstructor() {
-
+    this[dateSymbol] = date;
+    this[daySymbol] = day;
   }
 
   toJsDate(): Date {
@@ -67,44 +73,74 @@ export default class NepaliDate {
     return this[dateSymbol]
   }
 
-  setDate() {
+  getDay(): number {
+    return this[daySymbol]
+  }
 
+  setDate(date: number) {
+    const oldDate = this[dateSymbol];
+    try {
+      this[dateSymbol] = date;
+      this[convertToADMethod]();
+    } catch (e) {
+      this[dateSymbol] = oldDate;
+      throw e;
+    }
   }
 
   getMonth(): number {
     return this[monthSymbol]
   }
 
-  setMonth() {
-
+  setMonth(month: number) {
+    const oldMonth = this[monthSymbol];
+    try {
+      this[monthSymbol] = month;
+      this[convertToADMethod]();
+    } catch (e) {
+      this[monthSymbol] = oldMonth;
+      throw e;
+    }
   }
 
   getYear(): number {
     return this[yearSymbol]
   }
 
-  setYear() {
-
+  setYear(year: number) {
+    const oldYear = this[yearSymbol];
+    try {
+      this[yearSymbol] = year;
+      this[convertToADMethod]();
+    } catch (e) {
+      this[yearSymbol] = oldYear;
+      throw e;
+    }
   }
 
+  static parse() {
 
+  }
   static now() {
-    return Date.now();
+    return new NepaliDate();
   }
 
-  static fromAD() {
-
+  static fromAD(date: Date) {
+    return new NepaliDate(date);
   }
 
-
-  convertToAD() {
-    const daysPassed = findPassedDays(this[yearSymbol], this[monthSymbol], this[dateSymbol])
-    const { date, month, year } = mapDaysToDate(daysPassed);
-    this.setDayYearMonth(year, month, date);
-    this[jsDateSymbol] = new Date(1943, 3, 13 + daysPassed)
+  [convertToBSMethod](date: Date) {
+    const { AD, BS } = convertToBS(date);
+    this[setAdBs](AD, BS);
   }
 
-  toLocaleString() {
-    return "Subesh"
+  [setAdBs](AD: IYearMonthDate, BS: IYearMonthDate) {
+    this[setDayYearMonth](BS.year, BS.month, BS.date, BS.day);
+    this[jsDateSymbol] = new Date(AD.year, AD.month, AD.date);
+  }
+
+  [convertToADMethod]() {
+    const { AD, BS } = convertToAD({ year: this[yearSymbol], month: this[monthSymbol], date: this[dateSymbol] });
+    this[setAdBs](AD, BS);
   }
 }
