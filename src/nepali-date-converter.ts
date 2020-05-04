@@ -1,5 +1,5 @@
 
-import {  convertToAD, convertToBS, IYearMonthDate } from './nepali-date-helper'
+import { convertToAD, convertToBS, IYearMonthDate, IAdBs } from './nepali-date-helper'
 
 
 const dateSymbol = Symbol('Date')
@@ -12,9 +12,7 @@ const convertToADMethod = Symbol('convertToAD()');
 const setAdBs = Symbol('setAdBs()');
 const setDayYearMonth = Symbol('setDayYearMonth()');
 export default class NepaliDate {
-
   private [jsDateSymbol]: Date;
-
   private [yearSymbol]: number;
   private [dateSymbol]: number;
   private [daySymbol]: number;
@@ -56,7 +54,7 @@ export default class NepaliDate {
     }
   }
 
-  [setDayYearMonth](year: number, month: number = 0, date: number = 1, day: number = 0) {
+  private [setDayYearMonth](year: number, month: number = 0, date: number = 1, day: number = 0) {
     this[yearSymbol] = year;
     this[monthSymbol] = month;
     this[dateSymbol] = date;
@@ -64,7 +62,6 @@ export default class NepaliDate {
   }
 
   toJsDate(): Date {
-
     return this[jsDateSymbol];
   }
 
@@ -90,6 +87,23 @@ export default class NepaliDate {
 
   getMonth(): number {
     return this[monthSymbol]
+  }
+
+  getDateObject(): IAdBs {
+    return {
+      BS: {
+        year: this[yearSymbol],
+        month: this[monthSymbol],
+        date: this[dateSymbol],
+        day: this[daySymbol]
+      },
+      AD: {
+        year: this[jsDateSymbol].getFullYear(),
+        month: this[jsDateSymbol].getMonth(),
+        date: this[jsDateSymbol].getDate(),
+        day: this[jsDateSymbol].getDay(),
+      }
+    }
   }
 
   setMonth(month: number) {
@@ -129,17 +143,17 @@ export default class NepaliDate {
     return new NepaliDate(date);
   }
 
-  [convertToBSMethod](date: Date) {
+  private [convertToBSMethod](date: Date) {
     const { AD, BS } = convertToBS(date);
     this[setAdBs](AD, BS);
   }
 
-  [setAdBs](AD: IYearMonthDate, BS: IYearMonthDate) {
+  private [setAdBs](AD: IYearMonthDate, BS: IYearMonthDate) {
     this[setDayYearMonth](BS.year, BS.month, BS.date, BS.day);
     this[jsDateSymbol] = new Date(AD.year, AD.month, AD.date);
   }
 
-  [convertToADMethod]() {
+  private [convertToADMethod]() {
     const { AD, BS } = convertToAD({ year: this[yearSymbol], month: this[monthSymbol], date: this[dateSymbol] });
     this[setAdBs](AD, BS);
   }
