@@ -18,10 +18,7 @@ export default class NepaliDate {
   private [daySymbol]: number;
   private [monthSymbol]: number;
 
-  constructor();
-  constructor(value: number);
-  constructor(dateString: string);
-  constructor(date: Date);
+  constructor(value?: string | number | Date);
   constructor(year: number, monthIndex: number, day: number);
   constructor() {
     const constructorError = new Error("Invalid constructor arguments");
@@ -133,7 +130,7 @@ export default class NepaliDate {
   }
 
   static parse() {
-
+    return new NepaliDate();
   }
   static now() {
     return new NepaliDate();
