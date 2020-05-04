@@ -10,6 +10,11 @@ export interface IYearMonthDate {
   day?: number;
 }
 
+export interface IAdBs {
+  AD: IYearMonthDate,
+  BS: IYearMonthDate
+}
+
 const monthDaysMappings = [
   [[30, 0], [32, 30], [31, 62], [32, 93], [31, 125], [30, 156], [30, 186], [30, 216], [29, 246], [30, 275], [29, 305], [31, 334]],
   [[31, 0], [31, 31], [32, 62], [31, 94], [31, 125], [31, 156], [30, 187], [29, 217], [30, 246], [29, 276], [30, 305], [30, 335]],
@@ -366,7 +371,7 @@ export function mapDaysToDateAD(daysPassed: number) {
 
 }
 
-export function convertToAD(bsDateObject: IYearMonthDate) {
+export function convertToAD(bsDateObject: IYearMonthDate): IAdBs {
   try {
     const daysPassed = findPassedDays(bsDateObject.year, bsDateObject.month, bsDateObject.date);
     const BS = mapDaysToDate(daysPassed);
@@ -382,7 +387,7 @@ export function convertToAD(bsDateObject: IYearMonthDate) {
 
 }
 
-export function convertToBS(adDateObject: Date) {
+export function convertToBS(adDateObject: Date): IAdBs {
   try {
     const daysPassed = findPassedDaysAD(adDateObject.getFullYear(), adDateObject.getMonth(), adDateObject.getDate());
     const BS = mapDaysToDate(daysPassed);
