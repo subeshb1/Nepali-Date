@@ -1,5 +1,7 @@
 # Nepali-Date
 
+[![Build Status](https://travis-ci.org/subeshb1/Nepali-Date.svg?branch=master)](https://travis-ci.org/subeshb1/Nepali-Date)
+
 A small JS Library to convert English Date to Nepali and Vice Versa.
 
 ## Contributing Guide
