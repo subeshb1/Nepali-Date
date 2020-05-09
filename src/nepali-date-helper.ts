@@ -1606,8 +1606,8 @@ export function convertToBS(adDateObject: Date): IAdBs {
   }
 }
 
-function mapLanguageNumber(number: string, language: Language): string {
-  return number
+function mapLanguageNumber(dateNumber: string, language: Language): string {
+  return dateNumber
     .split('')
     .map(num => formatObj[language].date[parseInt(num, 10)])
     .join('')
