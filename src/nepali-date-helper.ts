@@ -1647,3 +1647,24 @@ export function format(bsDate: IYearMonthDate, stringFormat: string, language: L
     })
     .replace(/\\/g, '')
 }
+
+export function parse(dateString: string): IYearMonthDate {
+  const OFFICIAL_FORMAT = /(\d{4})\s*([/-]|\s+)\s*(\d{1,2})\s*([/-]|\s+)\s*(\d{1,2})/
+  const GEORGIAN_FORMAT = /(\d{1,2})\s*([/-]|\s+)\s*(\d{1,2})\s*([/-]|\s+)\s*(\d{4})/
+  let match: RegExpMatchArray | null
+  if ((match = dateString.match(OFFICIAL_FORMAT))) {
+    return {
+      year: parseInt(match[1], 10),
+      month: parseInt(match[3], 10) - 1,
+      date: parseInt(match[5], 10)
+    }
+  }
+  if ((match = dateString.match(GEORGIAN_FORMAT))) {
+    return {
+      year: parseInt(match[5], 10),
+      month: parseInt(match[3], 10) - 1,
+      date: parseInt(match[1], 10)
+    }
+  }
+  throw new Error('Invalid date format')
+}

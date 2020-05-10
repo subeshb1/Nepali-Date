@@ -4,7 +4,8 @@ import {
   IYearMonthDate,
   IAdBs,
   format,
-  Language
+  Language,
+  parse
 } from './nepali-date-helper'
 
 const dateSymbol = Symbol('Date')
@@ -36,6 +37,9 @@ export default class NepaliDate {
           this[convertToBSMethod](new Date(argument))
           break
         case 'string':
+          const { date, year, month } = parse(argument)
+          this[setDayYearMonth](year, month, date)
+          this[convertToADMethod]()
           break
         case 'object':
           if (argument instanceof Date) {
@@ -139,13 +143,15 @@ export default class NepaliDate {
     }
   }
 
-  format(formatString: string, language: Language): string {
+  format(formatString: string, language: Language = NepaliDate.language): string {
     return format(this.getBS(), formatString, language)
   }
 
-  static parse() {
-    return new NepaliDate()
+  static parse(dateString: string): NepaliDate {
+    const { date, year, month } = parse(dateString)
+    return new NepaliDate(year, month, date)
   }
+
   static now() {
     return new NepaliDate()
   }
