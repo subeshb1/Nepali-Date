@@ -25,7 +25,7 @@ export default class NepaliDate {
   private [monthSymbol]: number
   static language: Language = Language.en
   constructor(value?: string | number | Date)
-  constructor(year: number, monthIndex: number, day: number)
+  constructor(year: number, monthIndex: number, date: number)
   constructor() {
     const constructorError = new Error('Invalid constructor arguments')
     if (arguments.length === 0) {

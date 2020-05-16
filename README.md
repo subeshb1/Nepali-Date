@@ -1,12 +1,88 @@
 # Nepali-Date
 
+A small Javascript/Typescript Library to convert English Date to Nepali and Vice Versa.
+
 [![Build Status](https://travis-ci.org/subeshb1/Nepali-Date.svg?branch=master)](https://travis-ci.org/subeshb1/Nepali-Date)
 
-A small JS Library to convert English Date to Nepali and Vice Versa.
+## Installation
+
+```
+npm i nepali-date-converter
+```
+
+## Basic Usage
+
+```js
+import NepaliDate from 'nepali-date-converter'
+// NepaliDate (year,month,date)
+let date1 = new NepaliDate(2051, 05, 24)
+// Javascript Date object
+new NepaliDate(2051, 05, 24).toJsDate()
+
+// formatting
+date1.format('ddd, DD MMMM YYYY') // 'Friday, 24 Aswin 2051'
+```
+
+## API
+
+### Constructors
+
+#### constructor(value?: string | number | Date)
+
+**String**
+
+Provide a valid nepali date string. The current supported formats are:
+
+```
+YYYY/MM/DD
+YYYY-MM-DD
+YYYY MM DD
+DD/MM/YYYY
+DD-MM-YYYY
+DD MM YYYY
+```
+
+Example:
+
+```js
+new NepaliDate('2051/02/01') // YYYY/MM/DD
+new NepaliDate('2051-02-01')
+new NepaliDate('2051 02 01')
+new NepaliDate('01/02/2051') // DD/MM/YYYY
+new NepaliDate('01-02-2051')
+new NepaliDate('01 02 2051')
+```
+
+**Number**
+The number value represents the UTC timestamp that will be converted to Nepali date.
+
+Example:
+
+```js
+new NepaliDate(1589638162879)
+```
+
+**Date**
+Javascript Date object
+
+Example:
+
+```js
+new NepaliDate(new Date(2020, 10, 10))
+```
+
+#### constructor(year: number, monthIndex: number, date: number)
+This constructor takes year, monthIndex i.e 0-11, and date.
+
+Example: 
+```js
+new Date(2051,0,1) // Baisakh 1, 2o51
+```
+
 
 ## Contributing Guide
 
-``` bash
+```bash
 # Fork the repo
 https://github.com/subeshb1/Nepali-Date
 
@@ -23,7 +99,7 @@ $ git checkout new-branch # Checkout to your new branch
 npm run test
 
 # Commit the changes
-$ git commit -m 'My super awesome contribution'
+$ npm run commit
 
 # Push your changes and
 $ git push
@@ -33,22 +109,6 @@ $ git push
 
 ```
 
-
 ## Maintainer
 
-* [Subesh Bhandari](https://twitter.com/subesh1)
-
-## Installation
-```
-npm i nepali-date-converter
-```
-
-## Basic Usage
-
-```js
-    import NepaliDate from 'nepali-date-converter';
-    // NepaliDate (year,month,date)
-    let date1 = new NepaliDate(2054,05,24);
-    // Javascript Date object
-    date1.ad
-```
+- [Subesh Bhandari](https://twitter.com/subesh1)
