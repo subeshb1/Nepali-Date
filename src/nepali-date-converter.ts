@@ -352,7 +352,7 @@ export default class NepaliDate {
    * a.format('dd', 'np') // 'आइतबार'
    * a.format('ddd DD, MMMM YYYY','np') // 'आइतबार १०, फाल्गुण २०५४'
    * // Set static variable to 'np' for default Nepali language
-   * NepaliDate.Language = 'np'
+   * NepaliDate.language = 'np'
    * a.format('ddd DD, MMMM YYYY') // 'आइतबार १०, फाल्गुण २०५४'
    * ```
    * @param formatString
@@ -406,5 +406,13 @@ export default class NepaliDate {
       date: this[dateSymbol]
     })
     this[setAdBs](AD, BS)
+  }
+
+  valueOf() {
+    return this[jsDateSymbol].getTime()
+  }
+
+  toString() {
+    return this.format('ddd DD, MMMM YYYY')
   }
 }
