@@ -7,13 +7,13 @@ A small Javascript/Typescript Library to convert English Date to Nepali and Vice
 ## Installation
 
 ```
-npm i Nepali-date-converter
+npm i nepali-date-converter
 ```
 
 ## Basic Usage
 
 ```js
-import NepaliDate from 'Nepali-date-converter'
+import NepaliDate from 'nepali-date-converter'
 // NepaliDate (year,month,date)
 let date1 = new NepaliDate(2051, 05, 24)
 // Javascript Date object
