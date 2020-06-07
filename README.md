@@ -7,7 +7,6 @@ A small Javascript/Typescript Library to convert English Date to Nepali and Vice
 ## Installation
 
 CDN:
-
 ```html
 <script src="https://cdn.jsdelivr.net/npm/nepali-date-converter/dist/nepali-date-converter.umd.js"></script>
 ```
@@ -18,10 +17,22 @@ Node JS:
 npm i nepali-date-converter
 ```
 
+```js
+import NepaliDate from 'nepali-date-converter'
+// or
+
+const NepaliDate = require('nepali-date-converter');
+```
+
+Deno:
+
+```js
+import NepaliDate from 'https://cdn.jsdelivr.net/npm/nepali-date-converter/dist/nepali-date-converter.es5.js'
+```
+
 ## Basic Usage
 
 ```js
-import NepaliDate from 'nepali-date-converter'
 // NepaliDate (year,month,date)
 let date1 = new NepaliDate(2051, 05, 24)
 // Javascript Date object
