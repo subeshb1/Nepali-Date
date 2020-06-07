@@ -43,7 +43,6 @@ describe('NepaliDate to English', () => {
     })
     expect(date.getBS()).toEqual({ date: 10, day: 1, month: 10, year: 2077 })
     expect(date.getAD()).toEqual({ date: 22, day: 1, month: 1, year: 2021 })
-    expect(date.toJsDate().getTime()).toEqual(1613931300000)
   })
 
   it('tests setters', () => {
