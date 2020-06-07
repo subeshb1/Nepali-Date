@@ -2,11 +2,19 @@
 
 A small Javascript/Typescript Library to convert English Date to Nepali and Vice Versa.
 
-[![Build Status](https://travis-ci.org/subeshb1/Nepali-Date.svg?branch=master)](https://travis-ci.org/subeshb1/Nepali-Date)
+[![Build Status](https://travis-ci.org/subeshb1/Nepali-Date.svg?branch=master)](https://travis-ci.org/subeshb1/Nepali-Date) ![Release version](https://img.shields.io/github/v/release/subeshb1/nepali-date)
 
 ## Installation
 
+CDN:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/nepali-date-converter/dist/nepali-date-converter.umd.js"></script>
 ```
+
+Node JS:
+
+```sh
 npm i nepali-date-converter
 ```
 
