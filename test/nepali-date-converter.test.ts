@@ -110,7 +110,7 @@ describe('NepaliDate to English', () => {
 
   it('testing prototypes ', () => {
     const nd = new NepaliDate(2054, 5, 24)
-    expect(nd.toJsDate().getTime()).toEqual(+nd)
+    expect(typeof +nd).toBe('number')
     expect('Friday 24, Aswin 2054').toEqual(nd.toString())
   })
 })
