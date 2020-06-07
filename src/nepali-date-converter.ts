@@ -26,7 +26,7 @@ export default class NepaliDate {
   /**
    * Default language for formatting. Set the value to 'np' for default nepali formatting.
    */
-  static language: Language = Language.en
+  static language: 'np' | 'en' = Language.en
   /**
    * **String**
    *
@@ -358,7 +358,7 @@ export default class NepaliDate {
    * @param formatString
    * @param language en | np
    */
-  format(formatString: string, language: Language = NepaliDate.language): string {
+  format(formatString: string, language: 'en' | 'np' = NepaliDate.language): string {
     return format(this.getBS(), formatString, language)
   }
 
