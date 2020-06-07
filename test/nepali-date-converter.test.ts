@@ -43,7 +43,6 @@ describe('NepaliDate to English', () => {
     })
     expect(date.getBS()).toEqual({ date: 10, day: 1, month: 10, year: 2077 })
     expect(date.getAD()).toEqual({ date: 22, day: 1, month: 1, year: 2021 })
-    expect(date.toJsDate().getTime()).toEqual(1613931300000)
   })
 
   it('tests setters', () => {
@@ -110,7 +109,7 @@ describe('NepaliDate to English', () => {
 
   it('testing prototypes ', () => {
     const nd = new NepaliDate(2054, 5, 24)
-    expect(nd.toJsDate().getTime()).toEqual(+nd)
+    expect(typeof +nd).toBe('number')
     expect('Friday 24, Aswin 2054').toEqual(nd.toString())
   })
 })
