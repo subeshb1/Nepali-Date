@@ -34,11 +34,11 @@ import NepaliDate from 'https://cdn.jsdelivr.net/npm/nepali-date-converter/dist/
 
 ```js
 // NepaliDate (year,month,date)
-let date1 = new NepaliDate(2051, 05, 24)
+let date1 = new NepaliDate(2054, 5, 24)
 // Javascript Date object
-new NepaliDate(2051, 05, 24).toJsDate()
+new NepaliDate(2051, 5, 24).toJsDate()
 // formatting
-date1.format('ddd, DD MMMM YYYY') // 'Friday, 24 Aswin 2051'
+date1.format('ddd, DD MMMM YYYY') // 'Monday, 24 Aswin 2051'
 // update date
 date1.setDate(10)
 date1.setMonth(1)
@@ -110,7 +110,7 @@ This constructor takes year, monthIndex i.e 0-11, and date.
 Example:
 
 ```js
-new Date(2051, 0, 1) // Baisakh 1, 2051
+new NepaliDate(2051, 0, 1) // This date represents Baisakh 1, 2051
 ```
 
 ### getYear(): number
@@ -200,7 +200,7 @@ Example:
 }
 ```
 
-### format(formatString: string, language: Language = NepaliDate.language): string
+### format(formatString: string, language: 'np' | 'en'): string
 
 Format Nepali date string based on format string.
 
@@ -232,7 +232,7 @@ a.format('DD/MM/YYYY', 'np') //' १०/११/२०५४'
 a.format('dd', 'np') // 'आइतबार'
 a.format('ddd DD, MMMM YYYY', 'np') // 'आइतबार १०, फाल्गुण २०५४'
 // Set static variable to 'np' for default Nepali language
-NepaliDate.Language = 'np'
+NepaliDate.language = 'np'
 a.format('ddd DD, MMMM YYYY') // 'आइतबार १०, फाल्गुण २०५४'
 ```
 
@@ -257,9 +257,9 @@ Example:
 
 ```js
 let a = new NepaliDate(2054, 10, 10)
-a.setMonth(1) // will make date NepaliDate(2054,11,10);
-a.setMonth(-1) // will make date NepaliDate(2053,11,10);
-a.setMonth(12) // will make date NepaliDate(2054,0,10);
+a.setMonth(1) // will make date NepaliDate(2054,1,10);
+a.setMonth(-1) // will make date NepaliDate(2053,11,10); To go back to previous month(s) in same or previous year 
+a.setMonth(12) // will make date NepaliDate(2054,0,10); To go ahead to coming month(s) in same or coming year
 ```
 
 ### setDate(date: number)
@@ -273,8 +273,8 @@ Example:
 ```js
 let a = new NepaliDate(2054, 10, 10)
 a.setDate(11) // will make date NepaliDate(2054,10,11);
-a.setDate(-1) // will make date NepaliDate(2054,9,29);
-a.setDate(45) // will make date NepaliDate(2054,10,15);
+a.setDate(-1) // will make date NepaliDate(2054,9,29); To go back to dates from previous months
+a.setDate(45) // will make date NepaliDate(2054,10,15); To go ahead to dates in coming months
 ```
 
 ### static parse(dateString: string): NepaliDate
