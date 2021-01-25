@@ -11,11 +11,11 @@ import {
 const dateSymbol = Symbol('Date')
 const daySymbol = Symbol('Day')
 const yearSymbol = Symbol('Year')
-const monthSymbol = Symbol('MonthIndex')
-const jsDateSymbol = Symbol('JsDate')
+const monthSymbol = Symbol('Month')
+const jsDateSymbol = Symbol('JSDate')
 const convertToBSMethod = Symbol('convertToBS()')
 const convertToADMethod = Symbol('convertToAD()')
-const setAdBs = Symbol('setADBS()')
+const setAdBs = Symbol('setAdBs()')
 const setDayYearMonth = Symbol('setDayYearMonth()')
 export default class NepaliDate {
   private [jsDateSymbol]: Date
