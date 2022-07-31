@@ -13,6 +13,7 @@ jobs:
     name: "${{ github.ref_name }} "
     env:
       NODE_AUTH_TOKEN: ${{ secrets.ACCESS_TOKEN_GITHUB }}
+      GH_TOKEN: ${{ secrets.ACCESS_TOKEN_GITHUB }}
     steps:
       - uses: actions/checkout@v3
 
