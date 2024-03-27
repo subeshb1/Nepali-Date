@@ -2,18 +2,23 @@ name: "Publish"
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - master
+
 
 permissions:
   id-token: write
-  contents: read
+  contents: write
+  packages: write
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     name: "${{ github.ref_name }} "
     env:
-      NODE_AUTH_TOKEN: ${{ secrets.ACCESS_TOKEN_GITHUB }}
       GH_TOKEN: ${{ secrets.ACCESS_TOKEN_GITHUB }}
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v3
 
@@ -26,6 +31,8 @@ jobs:
       - run: npm ci
 
       - run: npm run test
+
+      - run: npm run build
 
       - name: Publish
         run: npm run semantic-release
