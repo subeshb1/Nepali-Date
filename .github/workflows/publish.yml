@@ -36,6 +36,9 @@ jobs:
 
       - name: Publish
         run: npm run semantic-release
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_REGISTRY: https://registry.npmjs.org:8443/
 
       - name: Deploy docs
         run: npm run deploy-docs

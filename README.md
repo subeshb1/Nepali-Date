@@ -2,7 +2,7 @@
 
 A small Javascript/Typescript Library to convert English Date to Nepali and Vice Versa.
 
-[![Build Status](https://travis-ci.org/subeshb1/Nepali-Date.svg?branch=master)](https://travis-ci.org/subeshb1/Nepali-Date) ![Release version](https://img.shields.io/github/v/release/subeshb1/nepali-date)
+[![Publish](https://github.com/subeshb1/Nepali-Date/actions/workflows/publish.yml/badge.svg)](https://github.com/subeshb1/Nepali-Date/actions/workflows/publish.yml) ![Release version](https://img.shields.io/github/v/release/subeshb1/nepali-date)
 
 ## Installation
 
