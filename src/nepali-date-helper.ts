@@ -1,6 +1,8 @@
+import { dateConfigMap } from './date-config'
+
 export enum Language {
   np = 'np',
-  en = 'en'
+  en = 'en',
 }
 export interface IYearMonthDate {
   year: number
@@ -17,99 +19,9 @@ export interface IAdBs {
 /**
  * The constant storing nepali date month days mappings for each year starting from 2000 BS
  */
-const yearMonthDaysMapping: number[][] = [
-  [30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-  [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-  [30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-  [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-  [31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 29, 31],
-  [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-  [31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 30, 30],
-  [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-  [31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 30, 30],
-  [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-  [31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-  [31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-  [30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-  [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 31, 32, 31, 32, 30, 30, 29, 30, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-  [30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-  [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-  [30, 32, 31, 32, 31, 31, 29, 30, 30, 29, 29, 31],
-  [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-  [31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 30, 30],
-  [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-  [31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 30, 30],
-  [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-  [31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-  [31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-  [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 31, 32, 31, 32, 30, 30, 29, 30, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-  [30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-  [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-  [30, 32, 31, 32, 31, 31, 29, 30, 29, 30, 29, 31],
-  [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-  [31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 29, 31],
-  [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-  [31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 30, 30],
-  [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-  [31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-  [31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
-  [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31], // 2081 BS
-  [30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30],
-  [31, 31, 32, 31, 31, 30, 30, 30, 29, 30, 30, 30],
-  [31, 31, 32, 31, 31, 30, 30, 30, 29, 30, 30, 30],
-  [31, 32, 31, 32, 30, 31, 30, 30, 29, 30, 30, 30],
-  [30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30],
-  [31, 31, 32, 31, 31, 31, 30, 30, 29, 30, 30, 30],
-  [30, 31, 32, 32, 30, 31, 30, 30, 29, 30, 30, 30],
-  [30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30],
-  [30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30]
-]
+const yearMonthDaysMapping: number[][] = Object.values(dateConfigMap).map((year) =>
+  Object.values(year)
+)
 
 /**
  * Memoizing the days passed for each month in year for faster calculation
@@ -197,7 +109,7 @@ export const formatObj = {
   en: {
     day: {
       short: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-      long: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+      long: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     },
     month: {
       short: ['Bai', 'Jes', 'Asa', 'Shr', 'Bhd', 'Asw', 'Kar', 'Man', 'Pou', 'Mag', 'Fal', 'Cha'],
@@ -213,15 +125,15 @@ export const formatObj = {
         'Poush',
         'Magh',
         'Falgun',
-        'Chaitra'
-      ]
+        'Chaitra',
+      ],
     },
-    date: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    date: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
   },
   np: {
     day: {
       short: ['आइत', 'सोम', 'मंगल', 'बुध', 'बिहि', 'शुक्र', 'शनि'],
-      long: ['आइतबार', 'सोमबार', 'मंगलबार', 'बुधबार', 'बिहिबार', 'शुक्रबार', 'शनिबार']
+      long: ['आइतबार', 'सोमबार', 'मंगलबार', 'बुधबार', 'बिहिबार', 'शुक्रबार', 'शनिबार'],
     },
     month: {
       short: ['बै', 'जे', 'अ', 'श्रा', 'भा', 'आ', 'का', 'मं', 'पौ', 'मा', 'फा', 'चै'],
@@ -237,11 +149,11 @@ export const formatObj = {
         'पौष',
         'माघ',
         'फाल्गुण',
-        'चैत्र'
-      ]
+        'चैत्र',
+      ],
     },
-    date: ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९']
-  }
+    date: ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'],
+  },
 }
 
 /**
@@ -251,7 +163,7 @@ const beginEnglish = {
   year: 1943,
   month: 3,
   date: 13,
-  day: 3
+  day: 3,
 }
 
 /**
@@ -299,12 +211,12 @@ export function mapDaysToDate(daysPassed: number): IYearMonthDate {
   }
 
   const yearIndex = yearDaysMapping.findIndex(
-    year =>
+    (year) =>
       daysPassed > year[COMPLETED_DAYS] && daysPassed <= year[COMPLETED_DAYS] + year[TOTAL_DAYS]
   )
   const monthRemainder = daysPassed - yearDaysMapping[yearIndex][COMPLETED_DAYS]
   const monthIndex = monthDaysMappings[yearIndex].findIndex(
-    month =>
+    (month) =>
       monthRemainder > month[COMPLETED_DAYS] &&
       monthRemainder <= month[COMPLETED_DAYS] + month[TOTAL_DAYS]
   )
@@ -313,7 +225,7 @@ export function mapDaysToDate(daysPassed: number): IYearMonthDate {
   return {
     year: getYearFromIndex(yearIndex),
     month: monthIndex,
-    date: date
+    date: date,
   }
 }
 
@@ -331,7 +243,7 @@ export function mapDaysToDateAD(daysPassed: number) {
     year: mappedDate.getUTCFullYear(),
     month: mappedDate.getUTCMonth(),
     date: mappedDate.getUTCDate(),
-    day: mappedDate.getUTCDay()
+    day: mappedDate.getUTCDay(),
   }
 }
 
@@ -343,7 +255,7 @@ export function convertToAD(bsDateObject: IYearMonthDate): IAdBs {
 
     return {
       AD,
-      BS: { ...BS, day: AD.day }
+      BS: { ...BS, day: AD.day },
     }
   } catch {
     throw new Error("The date doesn't fall within 2000/01/01 - 2090/12/30")
@@ -362,7 +274,7 @@ export function convertToBS(adDateObject: Date): IAdBs {
 
     return {
       AD,
-      BS: { ...BS, day: AD.day }
+      BS: { ...BS, day: AD.day },
     }
   } catch {
     throw new Error("The date doesn't fall within 2000/01/01 - 2090/12/30")
@@ -372,7 +284,7 @@ export function convertToBS(adDateObject: Date): IAdBs {
 function mapLanguageNumber(dateNumber: string, language: 'en' | 'np'): string {
   return dateNumber
     .split('')
-    .map(num => formatObj[language].date[parseInt(num, 10)])
+    .map((num) => formatObj[language].date[parseInt(num, 10)])
     .join('')
 }
 
@@ -424,7 +336,7 @@ export function parse(dateString: string): IYearMonthDate {
     return {
       year: parseInt(match[1], 10),
       month: parseInt(match[3], 10) - 1,
-      date: parseInt(match[5], 10)
+      date: parseInt(match[5], 10),
     }
   }
   match = dateString.match(GEORGIAN_FORMAT)
@@ -432,7 +344,7 @@ export function parse(dateString: string): IYearMonthDate {
     return {
       year: parseInt(match[5], 10),
       month: parseInt(match[3], 10) - 1,
-      date: parseInt(match[1], 10)
+      date: parseInt(match[1], 10),
     }
   }
   throw new Error('Invalid date format')

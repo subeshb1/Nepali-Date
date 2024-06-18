@@ -321,6 +321,10 @@ $ git push
 
 ```
 
+## Fixing dates and adding future data
+
+The length of month can change for the future dates. Update the `date-config-ts` files with the number of days in respective months to fix the issue. Order the data in ascending order
+
 ## Maintainer
 
 - [Subesh Bhandari](https://twitter.com/subesh1)

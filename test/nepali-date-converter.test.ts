@@ -7,27 +7,32 @@ describe('NepaliDate to English', () => {
       date: now.getDate(),
       day: now.getDay(),
       year: now.getFullYear(),
-      month: now.getMonth()
+      month: now.getMonth(),
     })
     expect(new NepaliDate(2054, 10, 10).getDateObject()).toEqual({
       AD: { date: 22, day: 0, month: 1, year: 1998 },
-      BS: { date: 10, day: 0, month: 10, year: 2054 }
+      BS: { date: 10, day: 0, month: 10, year: 2054 },
     })
     expect(new NepaliDate('2054 11 10').getDateObject()).toEqual({
       AD: { date: 22, day: 0, month: 1, year: 1998 },
-      BS: { date: 10, day: 0, month: 10, year: 2054 }
+      BS: { date: 10, day: 0, month: 10, year: 2054 },
     })
     expect(new NepaliDate('2054/11/10').getDateObject()).toEqual({
       AD: { date: 22, day: 0, month: 1, year: 1998 },
-      BS: { date: 10, day: 0, month: 10, year: 2054 }
+      BS: { date: 10, day: 0, month: 10, year: 2054 },
     })
     expect(new NepaliDate(new Date(1998, 1, 22)).getDateObject()).toEqual({
       AD: { date: 22, day: 0, month: 1, year: 1998 },
-      BS: { date: 10, day: 0, month: 10, year: 2054 }
+      BS: { date: 10, day: 0, month: 10, year: 2054 },
     })
     expect(new NepaliDate(new Date(1998, 1, 22).getTime()).getDateObject()).toEqual({
       AD: { date: 22, day: 0, month: 1, year: 1998 },
-      BS: { date: 10, day: 0, month: 10, year: 2054 }
+      BS: { date: 10, day: 0, month: 10, year: 2054 },
+    })
+
+    expect(new NepaliDate(new Date(2024, 5, 14).getTime()).getDateObject()).toEqual({
+      AD: { date: 14, day: 5, month: 5, year: 2024 },
+      BS: { date: 32, day: 5, month: 1, year: 2081 },
     })
   })
 
@@ -39,7 +44,7 @@ describe('NepaliDate to English', () => {
     expect(date.getYear()).toEqual(2077)
     expect(date.getDateObject()).toEqual({
       AD: { date: 22, day: 1, month: 1, year: 2021 },
-      BS: { date: 10, day: 1, month: 10, year: 2077 }
+      BS: { date: 10, day: 1, month: 10, year: 2077 },
     })
     expect(date.getBS()).toEqual({ date: 10, day: 1, month: 10, year: 2077 })
     expect(date.getAD()).toEqual({ date: 22, day: 1, month: 1, year: 2021 })
@@ -68,19 +73,19 @@ describe('NepaliDate to English', () => {
       date: now.getDate(),
       day: now.getDay(),
       year: now.getFullYear(),
-      month: now.getMonth()
+      month: now.getMonth(),
     })
     expect(NepaliDate.parse('2054 11 10').getDateObject()).toEqual({
       AD: { date: 22, day: 0, month: 1, year: 1998 },
-      BS: { date: 10, day: 0, month: 10, year: 2054 }
+      BS: { date: 10, day: 0, month: 10, year: 2054 },
     })
     expect(NepaliDate.parse('2054/11/10').getDateObject()).toEqual({
       AD: { date: 22, day: 0, month: 1, year: 1998 },
-      BS: { date: 10, day: 0, month: 10, year: 2054 }
+      BS: { date: 10, day: 0, month: 10, year: 2054 },
     })
     expect(NepaliDate.fromAD(new Date(1998, 1, 22)).getDateObject()).toEqual({
       AD: { date: 22, day: 0, month: 1, year: 1998 },
-      BS: { date: 10, day: 0, month: 10, year: 2054 }
+      BS: { date: 10, day: 0, month: 10, year: 2054 },
     })
   })
 
