@@ -1166,8 +1166,8 @@ export const dateConfigMap: DateConfig = {
   '2082': {
     Baisakh: 31,
     Jestha: 31,
-    Asar: 31,
-    Shrawan: 32,
+    Asar: 32,
+    Shrawan: 31,
     Bhadra: 31,
     Aswin: 31,
     Kartik: 30,
