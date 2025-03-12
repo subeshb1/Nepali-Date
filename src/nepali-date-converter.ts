@@ -23,6 +23,33 @@ export default class NepaliDate {
   private [dateSymbol]: number
   private [daySymbol]: number
   private [monthSymbol]: number
+  
+  static readonly KTM_OFFSET = 5.75 * 60 * 60 * 1000 // +5:45 in milliseconds
+
+  /**
+   * Creates a Date object in Kathmandu timezone
+   */
+  private static createKtmDate(year: number, month: number, date: number, hours = 0, minutes = 0, seconds = 0, ms = 0): Date {
+    // Create date in UTC
+    const utcDate = new Date(Date.UTC(year, month, date, hours, minutes, seconds, ms))
+    
+    // Adjust for Kathmandu timezone
+    return new Date(utcDate.getTime() - NepaliDate.KTM_OFFSET)
+  }
+
+  /**
+   * Get time components in Kathmandu timezone
+   */
+  private getTimeComponents(): { hours: number; minutes: number; seconds: number; milliseconds: number } {
+    const ktmTime = new Date(this[jsDateSymbol].getTime() + NepaliDate.KTM_OFFSET)
+    return {
+      hours: ktmTime.getUTCHours(),
+      minutes: ktmTime.getUTCMinutes(),
+      seconds: ktmTime.getUTCSeconds(),
+      milliseconds: ktmTime.getUTCMilliseconds()
+    }
+  }
+
   /**
    * Default language for formatting. Set the value to 'np' for default nepali formatting.
    */
@@ -94,7 +121,7 @@ export default class NepaliDate {
    * @param monthIndex
    * @param date
    */
-  constructor(year: number, monthIndex: number, date: number)
+  constructor(year: number, monthIndex: number, date: number, hours?: number, minutes?: number, seconds?: number, milliseconds?: number)
   constructor() {
     const constructorError = new Error('Invalid constructor arguments')
     if (arguments.length === 0) {
@@ -120,9 +147,11 @@ export default class NepaliDate {
         default:
           throw constructorError
       }
-    } else if (arguments.length <= 3) {
-      this[setDayYearMonth](arguments[0], arguments[1], arguments[2])
-      this[convertToADMethod]()
+    } else if (arguments.length >= 3 && arguments.length <= 7) {
+      const args = Array.from(arguments)
+      const [year, month, date, hours = 0, minutes = 0, seconds = 0, ms = 0] = args
+      this[setDayYearMonth](year, month, date)
+      this[convertToADMethod](hours, minutes, seconds, ms)
     } else {
       throw constructorError
     }
@@ -394,18 +423,20 @@ export default class NepaliDate {
     this[setAdBs](AD, BS)
   }
 
-  private [setAdBs](AD: IYearMonthDate, BS: IYearMonthDate) {
+  private [setAdBs](AD: IYearMonthDate, BS: IYearMonthDate, timeComponents?: { hours: number; minutes: number; seconds: number; milliseconds: number }) {
     this[setDayYearMonth](BS.year, BS.month, BS.date, BS.day)
-    this[jsDateSymbol] = new Date(AD.year, AD.month, AD.date)
+    
+    const { hours = 0, minutes = 0, seconds = 0, milliseconds = 0 } = timeComponents || {}
+    this[jsDateSymbol] = NepaliDate.createKtmDate(AD.year, AD.month, AD.date, hours, minutes, seconds, milliseconds)
   }
 
-  private [convertToADMethod]() {
+  private [convertToADMethod](hours = 0, minutes = 0, seconds = 0, ms = 0) {
     const { AD, BS } = convertToAD({
       year: this[yearSymbol],
       month: this[monthSymbol],
       date: this[dateSymbol]
     })
-    this[setAdBs](AD, BS)
+    this[setAdBs](AD, BS, { hours, minutes, seconds, milliseconds: ms })
   }
 
   valueOf() {
@@ -414,5 +445,70 @@ export default class NepaliDate {
 
   toString() {
     return this.format('ddd DD, MMMM YYYY')
+  }
+
+  /**
+   * Get hours in Kathmandu timezone (0-23)
+   */
+  getHours(): number {
+    return this.getTimeComponents().hours
+  }
+
+  /**
+   * Get minutes in Kathmandu timezone (0-59)
+   */
+  getMinutes(): number {
+    return this.getTimeComponents().minutes
+  }
+
+  /**
+   * Get seconds in Kathmandu timezone (0-59)
+   */
+  getSeconds(): number {
+    return this.getTimeComponents().seconds
+  }
+
+  /**
+   * Get milliseconds in Kathmandu timezone (0-999)
+   */
+  getMilliseconds(): number {
+    return this.getTimeComponents().milliseconds
+  }
+
+  /**
+   * Set hours in Kathmandu timezone (0-23)
+   */
+  setHours(hours: number, minutes?: number, seconds?: number, ms?: number): void {
+    const time = this.getTimeComponents()
+    this[convertToADMethod](
+      hours,
+      minutes ?? time.minutes,
+      seconds ?? time.seconds,
+      ms ?? time.milliseconds
+    )
+  }
+
+  /**
+   * Set minutes in Kathmandu timezone (0-59)
+   */
+  setMinutes(minutes: number, seconds?: number, ms?: number): void {
+    const time = this.getTimeComponents()
+    this[convertToADMethod](time.hours, minutes, seconds ?? time.seconds, ms ?? time.milliseconds)
+  }
+
+  /**
+   * Set seconds in Kathmandu timezone (0-59)
+   */
+  setSeconds(seconds: number, ms?: number): void {
+    const time = this.getTimeComponents()
+    this[convertToADMethod](time.hours, time.minutes, seconds, ms ?? time.milliseconds)
+  }
+
+  /**
+   * Set milliseconds in Kathmandu timezone (0-999)
+   */
+  setMilliseconds(ms: number): void {
+    const time = this.getTimeComponents()
+    this[convertToADMethod](time.hours, time.minutes, time.seconds, ms)
   }
 }

@@ -89,6 +89,66 @@ describe('NepaliDate to English', () => {
     })
   })
 
+  it('converts BS dates to AD with correct UTC handling', () => {
+    const nepaliDate = new NepaliDate('2081/11/09')
+    const jsDate = nepaliDate.toJsDate()
+    
+    // Test the exact conversion
+    expect(jsDate.toISOString()).toBe('2025-02-21T00:00:00.000Z')
+    
+    // Verify date components
+    expect(jsDate.getUTCFullYear()).toBe(2025)
+    expect(jsDate.getUTCMonth()).toBe(1) // February
+    expect(jsDate.getUTCDate()).toBe(21)
+    
+    // Verify time is set to midnight UTC
+    expect(jsDate.getUTCHours()).toBe(0)
+    expect(jsDate.getUTCMinutes()).toBe(0)
+    expect(jsDate.getUTCSeconds()).toBe(0)
+    expect(jsDate.getUTCMilliseconds()).toBe(0)
+  })
+
+  it('handles time in Kathmandu timezone', () => {
+    // Test constructor with time
+    const date = new NepaliDate(2081, 10, 9, 14, 30, 45, 500) // 2:30:45.500 PM
+    
+    // Test getters
+    expect(date.getHours()).toBe(14)
+    expect(date.getMinutes()).toBe(30)
+    expect(date.getSeconds()).toBe(45)
+    expect(date.getMilliseconds()).toBe(500)
+
+    // Test setters
+    date.setHours(15)
+    expect(date.getHours()).toBe(15)
+    expect(date.getMinutes()).toBe(30) // Other components should remain unchanged
+
+    date.setMinutes(45)
+    expect(date.getHours()).toBe(15)
+    expect(date.getMinutes()).toBe(45)
+    expect(date.getSeconds()).toBe(45)
+
+    date.setSeconds(30)
+    expect(date.getMinutes()).toBe(45)
+    expect(date.getSeconds()).toBe(30)
+    expect(date.getMilliseconds()).toBe(500)
+
+    date.setMilliseconds(100)
+    expect(date.getSeconds()).toBe(30)
+    expect(date.getMilliseconds()).toBe(100)
+
+    // Test multiple components at once
+    date.setHours(16, 20, 10, 200)
+    expect(date.getHours()).toBe(16)
+    expect(date.getMinutes()).toBe(20)
+    expect(date.getSeconds()).toBe(10)
+    expect(date.getMilliseconds()).toBe(200)
+
+    // Verify that the internal date is stored in UTC
+    const jsDate = date.toJsDate()
+    expect(jsDate.toISOString()).toBe('2025-02-21T10:35:10.200Z') // 16:20:10.200 NPT = 10:35:10.200 UTC
+  })
+
   describe('tests formatting', () => {
     it('Formats the date in English format.', () => {
       // First Date
