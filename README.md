@@ -7,6 +7,7 @@ A small Javascript/Typescript Library to convert English Date to Nepali and Vice
 ## Installation
 
 CDN:
+
 ```html
 <script src="https://cdn.jsdelivr.net/npm/nepali-date-converter/dist/nepali-date-converter.umd.js"></script>
 ```
@@ -21,7 +22,7 @@ npm i nepali-date-converter
 import NepaliDate from 'nepali-date-converter'
 // or
 
-const NepaliDate = require('nepali-date-converter');
+const NepaliDate = require('nepali-date-converter')
 ```
 
 Deno:
@@ -258,7 +259,7 @@ Example:
 ```js
 let a = new NepaliDate(2054, 10, 10)
 a.setMonth(1) // will make date NepaliDate(2054,1,10);
-a.setMonth(-1) // will make date NepaliDate(2053,11,10); To go back to previous month(s) in same or previous year 
+a.setMonth(-1) // will make date NepaliDate(2053,11,10); To go back to previous month(s) in same or previous year
 a.setMonth(12) // will make date NepaliDate(2054,0,10); To go ahead to coming month(s) in same or coming year
 ```
 
@@ -292,6 +293,28 @@ Similar to calling empty constructor
 Returns new converted Nepali Date from the provided Javascript Date.
 It is similar to passing string as constructor
 
+## Fixing dates and adding future data
+
+The length of month can change for the future dates. Update the `date-config-ts` files with the number of days in respective months to fix the issue. Order the data in ascending order
+
+### Accessing the date config
+
+There might be a case where you need to access the date config to get the number of days in a month for a specific year.
+
+To access the date config, you can use the following code:
+
+```ts
+import { dateConfigMap } from 'nepali-date-converter'
+
+dateConfigMap['2078']
+```
+
+Access a specific month for a year
+
+```ts
+dateConfigMap['2078'].Mangsir
+```
+
 ## Contributing Guide
 
 ```bash
@@ -320,10 +343,6 @@ $ git push
 [https://github.com/subeshb1/Nepali-Date/compare](https://github.com/subeshb1/Nepali-Date/compare)
 
 ```
-
-## Fixing dates and adding future data
-
-The length of month can change for the future dates. Update the `date-config-ts` files with the number of days in respective months to fix the issue. Order the data in ascending order
 
 ## Maintainer
 
