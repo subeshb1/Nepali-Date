@@ -5,7 +5,7 @@ import {
   IAdBs,
   format,
   Language,
-  parse
+  parse,
 } from './nepali-date-helper'
 
 const dateSymbol = Symbol('Date')
@@ -17,6 +17,8 @@ const convertToBSMethod = Symbol('convertToBS()')
 const convertToADMethod = Symbol('convertToAD()')
 const setAdBs = Symbol('setADBS()')
 const setDayYearMonth = Symbol('setDayYearMonth()')
+
+export * from './date-config'
 export default class NepaliDate {
   private [jsDateSymbol]: Date
   private [yearSymbol]: number
@@ -209,7 +211,7 @@ export default class NepaliDate {
   getDateObject(): IAdBs {
     return {
       BS: this.getBS(),
-      AD: this.getAD()
+      AD: this.getAD(),
     }
   }
   /**
@@ -229,7 +231,7 @@ export default class NepaliDate {
       year: this[yearSymbol],
       month: this[monthSymbol],
       date: this[dateSymbol],
-      day: this[daySymbol]
+      day: this[daySymbol],
     }
   }
   /**
@@ -249,7 +251,7 @@ export default class NepaliDate {
       year: this[jsDateSymbol].getFullYear(),
       month: this[jsDateSymbol].getMonth(),
       date: this[jsDateSymbol].getDate(),
-      day: this[jsDateSymbol].getDay()
+      day: this[jsDateSymbol].getDay(),
     }
   }
 
@@ -403,7 +405,7 @@ export default class NepaliDate {
     const { AD, BS } = convertToAD({
       year: this[yearSymbol],
       month: this[monthSymbol],
-      date: this[dateSymbol]
+      date: this[dateSymbol],
     })
     this[setAdBs](AD, BS)
   }
