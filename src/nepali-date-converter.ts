@@ -19,7 +19,7 @@ const setAdBs = Symbol('setADBS()')
 const setDayYearMonth = Symbol('setDayYearMonth()')
 
 export * from './date-config'
-export default class NepaliDate {
+export class NepaliDate {
   private [jsDateSymbol]: Date
   private [yearSymbol]: number
   private [dateSymbol]: number
@@ -418,3 +418,11 @@ export default class NepaliDate {
     return this.format('ddd DD, MMMM YYYY')
   }
 }
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = NepaliDate;
+  module.exports.default = NepaliDate;
+  module.exports.NepaliDate = NepaliDate;
+}
+
+export default NepaliDate;
