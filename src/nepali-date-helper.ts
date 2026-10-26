@@ -230,9 +230,8 @@ export function mapDaysToDate(daysPassed: number): IYearMonthDate {
 }
 
 export function findPassedDaysAD(year: number, month: number, date: number) {
-  const timeDiff = Math.abs(
+  const timeDiff =
     Date.UTC(year, month, date) - Date.UTC(beginEnglish.year, beginEnglish.month, beginEnglish.date)
-  )
   const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24))
   return diffDays
 }
