@@ -1,5 +1,13 @@
 # Change Log
 
+## [3.4.1](https://github.com/subeshb1/Nepali-Date/compare/v3.4.0...v3.4.1) (2026-10-29)
+
+
+### Bug Fixes
+
+* **helper:** throw for AD dates before 2000/01/01 BS ([595bf3d](https://github.com/subeshb1/Nepali-Date/commit/595bf3d5c23df0a0272b28253538ff831ba5b1fe))
+* **ISS-73:** month days for 2084-2086 ([fa1aad7](https://github.com/subeshb1/Nepali-Date/commit/fa1aad703a77435b52e5330a69fd33cfbc4e8ee9))
+
 ## [3.4.0](https://github.com/subeshb1/Nepali-Date/compare/v3.3.4...v3.4.0) (2025-04-06)
 
 ### Features
