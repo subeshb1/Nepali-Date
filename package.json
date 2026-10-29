@@ -20,6 +20,20 @@
   "main": "dist/nepali-date-converter.umd.js",
   "module": "dist/nepali-date-converter.es5.js",
   "typings": "dist/types/nepali-date-converter.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/types/nepali-date-converter.d.mts",
+        "default": "./dist/nepali-date-converter.mjs"
+      },
+      "require": {
+        "types": "./dist/types/index.d.cts",
+        "default": "./dist/nepali-date-converter.umd.js"
+      }
+    },
+    "./package.json": "./package.json",
+    "./*": "./*"
+  },
   "files": [
     "dist"
   ],
@@ -35,10 +49,11 @@
   "scripts": {
     "lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
     "prebuild": "rimraf dist",
-    "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs src/nepali-date-converter.ts",
+    "build": "tsc --module commonjs && rollup -c rollup.config.ts && ts-node tools/build-types && typedoc --out docs src/nepali-date-converter.ts",
     "start": "rollup -c rollup.config.ts -w",
     "test": "jest",
     "test-coverage": "jest",
+    "test:package": "node tools/check-package.js",
     "test:watch": "jest --coverage --watch",
     "test:prod": "npm run lint && npm run test-coverage -- --no-cache",
     "deploy-docs": "ts-node tools/gh-pages-publish",
