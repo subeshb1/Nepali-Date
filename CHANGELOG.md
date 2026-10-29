@@ -1,5 +1,12 @@
 # Change Log
 
+## [3.4.2](https://github.com/subeshb1/Nepali-Date/compare/v3.4.1...v3.4.2) (2026-10-29)
+
+
+### Bug Fixes
+
+* **package:** make require() and Node ESM import return the class ([951db1f](https://github.com/subeshb1/Nepali-Date/commit/951db1f735ca13885ab79ee083570222be9e62dc))
+
 ## [3.4.1](https://github.com/subeshb1/Nepali-Date/compare/v3.4.0...v3.4.1) (2026-10-29)
 
 
