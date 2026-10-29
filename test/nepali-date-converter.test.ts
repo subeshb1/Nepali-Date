@@ -55,6 +55,8 @@ describe('NepaliDate to English', () => {
       month: 9,
       year: 2086,
     })
+  })
+
   it('throws for AD dates before 2000/01/01 BS', () => {
     expect(new NepaliDate(new Date(1943, 3, 14)).getBS()).toEqual({
       date: 1,
