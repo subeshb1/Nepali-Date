@@ -36,6 +36,21 @@ describe('NepaliDate to English', () => {
     })
   })
 
+  it('throws for AD dates before 2000/01/01 BS', () => {
+    expect(new NepaliDate(new Date(1943, 3, 14)).getBS()).toEqual({
+      date: 1,
+      day: 3,
+      month: 0,
+      year: 2000,
+    })
+    expect(() => new NepaliDate(new Date(1943, 3, 12))).toThrow(
+      "The date doesn't fall within 2000/01/01 - 2090/12/30"
+    )
+    expect(() => new NepaliDate(new Date(1900, 0, 1))).toThrow(
+      "The date doesn't fall within 2000/01/01 - 2090/12/30"
+    )
+  })
+
   it('tests getters', () => {
     const date = new NepaliDate(2077, 10, 10)
     expect(date.getDay()).toEqual(1)
