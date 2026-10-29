@@ -8,9 +8,10 @@ on:
 
 
 permissions:
-  id-token: write
-  contents: write
-  packages: write
+  id-token: write # npm trusted publishing (OIDC) and provenance
+  contents: write # push release commit, tag and gh-pages
+  issues: write # comment on released issues
+  pull-requests: write # comment on released PRs
 
 jobs:
   deploy:
@@ -18,7 +19,7 @@ jobs:
     name: "${{ github.ref_name }} "
     timeout-minutes: 20
     env:
-      GH_TOKEN: ${{ secrets.ACCESS_TOKEN_GITHUB }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v4
