@@ -36,6 +36,25 @@ describe('NepaliDate to English', () => {
     })
   })
 
+  it('converts projected 2084-2086 dates (ISS-73)', () => {
+    expect(new NepaliDate(new Date(2027, 5, 22)).getBS()).toEqual({
+      date: 8,
+      day: 2,
+      month: 2,
+      year: 2084,
+    })
+    expect(new NepaliDate(new Date(2028, 3, 13)).getBS()).toEqual({
+      date: 1,
+      day: 4,
+      month: 0,
+      year: 2085,
+    })
+    expect(new NepaliDate(new Date(2030, 1, 12)).getBS()).toEqual({
+      date: 30,
+      day: 2,
+      month: 9,
+      year: 2086,
+    })
   it('throws for AD dates before 2000/01/01 BS', () => {
     expect(new NepaliDate(new Date(1943, 3, 14)).getBS()).toEqual({
       date: 1,
